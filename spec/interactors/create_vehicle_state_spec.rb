@@ -22,7 +22,6 @@ RSpec.describe CreateVehicleState do
 
         it "provides the vehicle states with complete included" do
             expect(context.vehicle.states).to eq v_states
-
         end
     end
 
