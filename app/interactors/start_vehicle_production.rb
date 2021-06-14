@@ -12,6 +12,8 @@ class StartVehicleProduction
             s.name.to_s
         end
 
+        vehicle.states.pop if vehicle.states.size > 4
+
         if vehicle.save 
             context.vehicle = vehicle
         else
