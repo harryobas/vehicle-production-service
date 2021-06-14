@@ -28,7 +28,7 @@ RSpec.describe PaintVehicle do
                 expect(context.vehicle.current_state).to eq "painted"
             end
         end
-        context "when is not in assembled state" do
+        context "when vehicle is not in assembled state" do
             subject(:context){ PaintVehicle.call({id: vehicle_id}) }
 
             it "fails" do 
