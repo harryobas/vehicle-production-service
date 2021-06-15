@@ -8,4 +8,13 @@ class VehiclesController < ApplicationController
             json_response({error: result.message}, :unprocessable_entity) 
         end
     end
+
+    def assemble 
+        result = AssembleVehicle.call(id: params[:id])
+        if result.success? 
+            json_response(result.vehicle)
+        else 
+            json_response({error: result.message}, :unprocessable_entity)
+        end
+    end
 end
