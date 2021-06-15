@@ -27,4 +27,13 @@ class VehiclesController < ApplicationController
         end
     end
 
+    def test 
+        result = TestVehicle.call(id: params[:id]) 
+        if result.success? 
+            json_response(result.vehicle) 
+        else 
+            json_response({error: result.message}, :unprocessable_entity)
+        end
+    end
+
 end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     member do 
       post 'assemble' 
       post 'paint'
+      post 'test'
     end
   end
  

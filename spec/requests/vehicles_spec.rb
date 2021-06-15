@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Vehicles", type: :request do
+  let!(:vehicle) { create(:designed_state_vehicle) }
+  let (:vehicle_id) {vehicle.id}
 
   describe "POST /vehicles" do
     before { post '/vehicles' }
@@ -14,8 +16,7 @@ RSpec.describe "Vehicles", type: :request do
     end
   end
   describe "POST /vehicles/:id/assemble" do 
-      let!(:vehicle) { create(:designed_state_vehicle) }
-      let (:vehicle_id) {vehicle.id}
+      
       let(:sm) {
         s = VehicleStateMachine.new 
         s.aasm_state = "assembled"
@@ -57,8 +58,7 @@ RSpec.describe "Vehicles", type: :request do
     end
   end
   describe "POST /vehicles/:id/paint" do 
-    let!(:vehicle) { create(:designed_state_vehicle) }
-      let (:vehicle_id) {vehicle.id}
+    
       let(:sm) {
         s = VehicleStateMachine.new 
         s.aasm_state = "assembled"
@@ -94,8 +94,38 @@ RSpec.describe "Vehicles", type: :request do
         expect(json['error']).to eq("Couldn't find Vehicle with 'id'=300")
       end
     end
+  end
+  describe "POST vehicles/:id/test" do 
+      let(:sm) {
+        s = VehicleStateMachine.new 
+        s.aasm_state = "painted"
+        s 
+    }
+
+    let(:vehicle_p) { create(:vehicle, vehicle_state_machine: sm)}
+    let(:vehicle_p_id) {vehicle_p.id}
+
+    context "when the vehicle is in painted state" do 
+      before {post "/vehicles/#{vehicle_p_id}/test"} 
+
+      it "returns the vehicle with current state set to tested" do 
+        expect(json['current_state']).to eq 'tested'
+      end
+      it "returns status code of 200" do 
+        expect(response).to have_http_status(200)
+      end
+    end
+    context "when the vehicle is not in painted state" do 
+      before {post "/vehicles/#{vehicle_id}/test"}
+
+      it "returns error" do 
+        expect(json['error']).to eq("Event 'test' cannot transition from 'designed'. ")
+      end
+      it "returns status code of 422" do 
+        expect(response).to have_http_status(422) 
+      end
+    end
 
   end
 
-  
 end
