@@ -16,8 +16,16 @@ RSpec.describe PaintVehicle do
 
     subject(:context){ PaintVehicle.call({id: vehicle_paint_id}) }
 
+
     describe ".call" do 
-        context "when vehicle is in assembled state" do 
+        context "when vehicle is in assembled state and painted is ordered after assembled " do
+            before(:each) do 
+                VehicleStateMachine.aasm do 
+                    event :paint do 
+                        transitions from: [:assembled], to: :painted 
+                    end
+                end
+            end 
             it 'succeeds' do 
                 expect(context).to be_a_success
             end
@@ -28,7 +36,8 @@ RSpec.describe PaintVehicle do
                 expect(context.vehicle.current_state).to eq "painted"
             end
         end
-        context "when vehicle is not in assembled state" do
+        
+        context "when vehicle is in assembled state and painted is not ordered after assembled" do
             subject(:context){ PaintVehicle.call({id: vehicle_id}) }
 
             it "fails" do 

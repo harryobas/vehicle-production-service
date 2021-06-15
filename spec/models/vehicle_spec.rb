@@ -6,4 +6,5 @@ RSpec.describe Vehicle, type: :model do
   it { should validate_presence_of(:current_state) }
   it { should validate_presence_of(:states) }
 
+
 end

@@ -21,5 +21,6 @@ class VehicleStateMachine < ApplicationRecord
 
     end
 
+   
 end
 
