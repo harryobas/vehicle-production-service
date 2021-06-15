@@ -36,7 +36,7 @@ RSpec.describe TestVehicle do
                 expect(context.vehicle.current_state).to eq "tested"
             end
         end
-        context "when vehicle is not in tested state" do 
+        context "when vehicle is not in painted state" do 
             subject(:context){ TestVehicle.call({id: vehicle_id}) }
 
             it "fails" do

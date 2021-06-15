@@ -18,7 +18,7 @@ RSpec.describe PaintVehicle do
 
 
     describe ".call" do 
-        context "when vehicle is in assembled state and painted is ordered after assembled " do
+        context "when vehicle is not in assembled state" do
             before(:each) do 
                 VehicleStateMachine.aasm do 
                     event :paint do 
