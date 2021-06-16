@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       post 'paint'
       post 'test'
     end
+    collection do 
+      post 'create_state' 
+    end
   end
  
 end

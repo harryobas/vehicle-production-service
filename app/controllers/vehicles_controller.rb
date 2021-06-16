@@ -45,6 +45,11 @@ class VehiclesController < ApplicationController
         end   
     end
 
+    def create_state 
+        CreateVehicleState.call(state: params[:state])
+        head :no_content
+    end
+
     private 
 
     def vehicle_params 

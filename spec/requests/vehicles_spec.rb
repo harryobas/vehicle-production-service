@@ -144,4 +144,18 @@ RSpec.describe "Vehicles", type: :request do
     end
   end
 
+  describe "POST /vehicles/create_state" do
+    let(:new_state) {{state: "complete"}} 
+    before {post "/vehicles/create_state", params: new_state} 
+    
+    it "creates a new state for vehicles" do 
+      expect(response.body).to be_empty
+    end
+
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
+    end
+
+  end
+
 end
