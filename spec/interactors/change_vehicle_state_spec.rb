@@ -1,9 +1,9 @@
-RSpec.describe UpdateVehicleState do
+RSpec.describe ChangeVehicleState do
     let!(:vehicle) { create(:designed_state_vehicle) }
     let (:vehicle_id) {vehicle.id} 
     let (:new_state) {"assembled"}
 
-    subject(:context){ UpdateVehicleState.call({id: vehicle_id, state: new_state}) }
+    subject(:context){ ChangeVehicleState.call({id: vehicle_id, state: new_state}) }
 
     describe '.call' do 
         it "succeeds" do

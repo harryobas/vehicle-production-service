@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Vehicles", type: :request do
   let!(:vehicle) { create(:designed_state_vehicle) }
   let (:vehicle_id) {vehicle.id}
-
+  
   describe "POST /vehicles" do
     before { post '/vehicles' }
 
@@ -53,7 +53,7 @@ RSpec.describe "Vehicles", type: :request do
         .to eq("Couldn't find Vehicle with 'id'=300") 
       end 
       it "returns status code of 422" do 
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(404)
       end
     end
   end
@@ -117,7 +117,6 @@ RSpec.describe "Vehicles", type: :request do
     end
     context "when the vehicle is not in painted state" do 
       before {post "/vehicles/#{vehicle_id}/test"}
-
       it "returns error" do 
         expect(json['error']).to eq("Event 'test' cannot transition from 'designed'. ")
       end
@@ -125,7 +124,24 @@ RSpec.describe "Vehicles", type: :request do
         expect(response).to have_http_status(422) 
       end
     end
+  end
+  describe "PATCH /vehicles/:id" do 
+    let (:valid_attributes) {{current_state: "tested"}}
+    context "when vehicle exist" do 
+      before {patch "/vehicles/#{vehicle_id}", params: valid_attributes}
 
+      it "updates the vehicle current state" do 
+        expect(json['current_state']).not_to eq vehicle.current_state
+      end
+    end
+
+    context "when vehicle does not exist" do 
+      before {patch "/vehicles/50009", params: valid_attributes}
+
+      it "returns status code of 404" do 
+        expect(response).to have_http_status(404)
+      end
+    end
   end
 
 end

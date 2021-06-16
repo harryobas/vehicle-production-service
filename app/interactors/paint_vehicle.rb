@@ -12,5 +12,6 @@ class PaintVehicle
 
     rescue ActiveRecord::RecordNotFound, AASM::InvalidTransition  => e
             context.fail!(message: e.message)
+            
     end
 end

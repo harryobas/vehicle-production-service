@@ -12,13 +12,10 @@ class StartVehicleProduction
             s.name.to_s
         end
 
-        vehicle.states.pop if vehicle.states.size > 4
+        reset_count = vehicle.states.size - 4 unless vehicle.states.size == 4
+        reset_count.times {vehicle.states.pop}
 
-        if vehicle.save 
-            context.vehicle = vehicle
-        else
-            context.fail!(message: "vehicle creation error")
-        end
+        context.vehicle = vehicle if vehicle.save
 
     end
 end

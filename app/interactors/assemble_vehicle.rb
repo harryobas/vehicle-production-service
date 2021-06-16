@@ -3,8 +3,9 @@ class AssembleVehicle
 
     def call
         vehicle = Vehicle.find(context.id)
-        if vehicle.vehicle_state_machine.assemble 
-        vehicle.current_state = vehicle.vehicle_state_machine.aasm_state
+        state_machine = vehicle.vehicle_state_machine
+        if state_machine.assemble 
+        vehicle.current_state = state_machine.aasm_state
         context.vehicle = vehicle if vehicle.save
         end  
     rescue ActiveRecord::RecordNotFound, AASM::InvalidTransition  => e

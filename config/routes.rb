@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :vehicles, only: [:create] do 
+  resources :vehicles, only: [:create, :update] do 
     member do 
       post 'assemble' 
       post 'paint'

@@ -15,5 +15,6 @@ class CreateVehicleState
         context.vehicle = vehicle if vehicle.save
     rescue ActiveRecord::RecordNotFound => e
         context.fail!(message: e.message)
+    
     end
 end

@@ -1,4 +1,4 @@
-class UpdateVehicleState 
+class ChangeVehicleState 
     include Interactor
 
     def call 
