@@ -18,7 +18,8 @@ RSpec.describe StartVehicleProduction do
        end
 
        it "provides the vehicle's permitted states" do
-        expect(context.vehicle.states).to eq(["designed", "assembled", "painted", "tested"])
+        sm = context.vehicle.vehicle_state_machine.aasm.states.map{|s| s.name.to_s}
+        expect(context.vehicle.states).to eq(sm)  
        end
     end
 
