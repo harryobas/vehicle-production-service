@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
     collection do 
       post 'create_state' 
+      post 'order_states'
     end
   end
  

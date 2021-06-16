@@ -50,6 +50,11 @@ class VehiclesController < ApplicationController
         head :no_content
     end
 
+    def order_states 
+        ChangeVehicleStatesOrder.call 
+        head :no_content
+    end
+
     private 
 
     def vehicle_params 

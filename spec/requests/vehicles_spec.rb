@@ -157,5 +157,16 @@ RSpec.describe "Vehicles", type: :request do
     end
 
   end
+  describe 'POST /vehicles/order_states' do 
+    before {post "/vehicles/order_states"}
+
+    it "changes the states order of vehicles" do 
+      expect(response.body).to be_empty
+    end
+
+    it "retirns status code 204" do
+      expect(response).to have_http_status(204)
+    end
+  end
 
 end
