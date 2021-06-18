@@ -7,8 +7,9 @@ class PaintVehicle
 
         if state_machine.paint 
             vehicle.current_state = state_machine.aasm_state
+           
             vehicle.states = state_machine.aasm.states.map{|s| s.name.to_s}
-            context.vehicle = vehicle if vehicle.save
+            context.vehicle = vehicle if vehicle.save &&  state_machine.save
         end
 
     rescue ActiveRecord::RecordNotFound, AASM::InvalidTransition  => e

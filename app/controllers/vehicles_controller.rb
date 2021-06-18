@@ -1,4 +1,7 @@
 class VehiclesController < ApplicationController
+    #before_action :authenticate_user
+    #before_action :authorize_as_admin, :only [:create, 
+    #:update, :create_state, :order_states, :index, :show, :delete]
 
     def create 
         result = StartVehicleProduction.call 
