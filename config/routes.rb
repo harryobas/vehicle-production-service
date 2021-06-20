@@ -5,15 +5,17 @@ Rails.application.routes.draw do
     post '/signup' => 'users#create'
   end
 
-  resources :vehicles, only: [:create, :update] do 
+  scope '/states' do 
+    post '/create_state' => 'vehicle_state_machine#create_state'  
+    post '/order_states' => 'vehicle_state_machine#order_states'
+    post '/delete_state' => 'vehicle_state_machine#delete_state'
+  end
+
+  resources :vehicles, only: [:index, :show, :create] do 
     member do 
       post 'assemble' 
       post 'paint'
       post 'test'
-    end
-    collection do 
-      post 'create_state' 
-      post 'order_states'
     end
   end
  

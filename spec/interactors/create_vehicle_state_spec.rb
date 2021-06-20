@@ -2,9 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe CreateVehicleState do 
-    let!(:new_state) { "complete" }
+    let!(:new_state) { "completed" }
+    let(:event) {"complete"}
+    let(:from) {"tested"}
 
-    subject(:context){ CreateVehicleState.call({state: new_state}) }
+   let(:params){{state: new_state, event: event, from: from}}
+
+    subject(:context){ CreateVehicleState.call(params) }
 
     describe '.call' do 
         it "succeeds" do 
