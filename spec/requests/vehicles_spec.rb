@@ -60,5 +60,17 @@ RSpec.describe "Vehicles", type: :request do
     end
   end
 
-  
+  describe "GET /vehicles/:id" do 
+    before {get "/vehicles/#{vehicle_id}"}
+
+    context "when the record exist" do 
+      it "returns the vehicle" do 
+        expect(json['id']).to eq vehicle_id
+      end
+      it "returns status code of 200" do 
+        expect(response).to have_http_status(200)
+      end
+    end
+  end
+
 end

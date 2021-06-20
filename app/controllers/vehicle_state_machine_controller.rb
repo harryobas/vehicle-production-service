@@ -13,4 +13,9 @@ class VehicleStateMachineController < ApplicationController
         head :no_content
     end
 
+    def delete_state 
+        DeleteVehicleState.call(state: params[:state])
+        head :no_content
+    end
+
 end

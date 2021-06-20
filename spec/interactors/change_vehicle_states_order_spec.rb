@@ -7,5 +7,4 @@ RSpec.describe ChangeVehicleStatesOrder do
             expect(context).to be_a_success
         end
     end
-
 end

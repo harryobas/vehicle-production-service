@@ -6,7 +6,7 @@ RSpec.describe CreateVehicleState do
     let(:event) {"complete"}
     let(:from) {"tested"}
 
-   let(:params){{state: new_state, event: event, from: from}}
+    let(:params){{state: new_state, event: event, from: from}}
 
     subject(:context){ CreateVehicleState.call(params) }
 
