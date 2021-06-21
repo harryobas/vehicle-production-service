@@ -1,4 +1,5 @@
 class VehicleStateMachineController < ApplicationController
+    before_action :authenticate_user, :authorize_as_admin
 
     def create_state 
         state = params[:state]
