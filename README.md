@@ -93,7 +93,36 @@ This app is dockerized to enable both ease of installation and execution on eith
     }
     ```
 
-    ### `GET /vehicles/{id}/paint': Change a vehicle's current state to painted 
+### `POST /vehicles/{id}/assemble`: Change a vehicle's current state to assembled
+  - Header:
+    - Authorization: bearer \<token\>
+  - Response
+    - 200 OK
+    ```
+    {
+    
+         "id": integer,
+         "current_state": "assembled",
+         "states": [] // list of strings
+    }
+    ```
+    - 404 Not Found
+    ```
+    {
+       "error": "Couldn't find Vehicle with 'id'={id}"
+       
+    }
+    ```
+    - 422 Unprocessable Entity
+    ```
+     { 
+         "error": "Event assemble cannot transition from {assembled, painted, tested}" 
+        
+     }
+     // assembled state can only be transitioned to from designed state. 
+    ```
+
+### `POST /vehicles/{id}/paint`: Change a vehicle's current state to painted 
   - Header:
     - Authorization: bearer \<token\>
   - Response
@@ -123,6 +152,82 @@ This app is dockerized to enable both ease of installation and execution on eith
      //This could however not be the case if the states order of vehicles changes.
 
     ```
+### `POST /vehicles/{id}/test`: Change a vehicle's current state to tested
+  - Header:
+    - Authorization: bearer \<token\>
+  - Response
+    - 200 OK
+    ```
+    {
+    
+         "id": integer,
+         "current_state": "tested",
+         "states": [] // list of strings
+    }
+    ```
+    - 404 Not Found
+    ```
+    {
+       "error": "Couldn't find Vehicle with 'id'={id}"
+       
+    }
+    ```
+    - 422 Unprocessable Entity
+    ```
+     { 
+
+      "error": "Event paint cannot transition from {designed, painted tested}" 
+        
+     }
+      // tested state can only be transitioned to from painted state by default. 
+     //This could however not be the case if the states order of vehicles changes.
+
+     ```
+### `POST /states/create_state`: Creates a new state for vehicles 
+  - Header:
+    - Authorization: bearer \<token\>
+
+  - Request body:
+
+  ```
+  {"state": string, "event": string, "from": string } 
+
+  ```
+  - Response
+    - 204 No Content 
+
+    - 500 Internal Server Error
+    ```
+    {
+        "error": "Something went wrong"
+    }
+    ```
+### `POST /states/delete_state`: Deletes a state 
+  - Header:
+    - Authorization: bearer \<token\>
+   
+  - Request body:
+
+  ```
+  {"state": string } 
+
+  ```
+  - Response
+    - 204 No Content 
+
+    - 500 Internal Server Error
+    ```
+    {
+        "error": "Something went wrong"
+    }
+    ```
+- Request body:
+
+  ```
+  { "auth": {"username": string, "email": string } }
+
+  ```
+
     
 
 
