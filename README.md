@@ -117,10 +117,10 @@ This app is dockerized to enable both ease of installation and execution on eith
     ```
      { 
          "error": "Event paint cannot transition from {designed, painted, tested}" 
-         // painted state can only be transitioned to from assembled state by default. 
-         //This could however not be the case if the states order of vehicles changes.
-
+        
      }
+      // painted state can only be transitioned to from assembled state by default. 
+     //This could however not be the case if the states order of vehicles changes.
 
     ```
     
