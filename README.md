@@ -43,7 +43,36 @@ This app is dockerized to enable both ease of installation and execution on eith
     ```
     - 404 Not Found
 
-### `POST /vehicles : Creates a new vehicle with initial state designed
+### `POST /auth/signup`: Signup
+   - Request body:
+
+  ```
+  {
+    "username": string,
+    "email": string,
+    "password": string,
+    "password_confirmation": string,
+    "role": string  
+   }
+
+  ```
+  - Response
+
+    - 201 Created
+    ```
+     { 
+       "id": integer
+       "username": string,
+       "email": string,
+       "role": string 
+     }
+    ```
+    - 422 Uprocessable Entity
+    ```
+    {error: "validation faild"}
+    ```
+
+### `POST /vehicles`: Creates a new vehicle with initial state designed
   - Header:
     - Authorization: bearer \<token\>
   - Response
@@ -70,9 +99,20 @@ This app is dockerized to enable both ease of installation and execution on eith
             "states": [] // list of strings
         }
     ]
+ - Request body:
 
+  ```
+  { "auth": {"username": string, "email": string } }
+
+  ```
+  - Response
+
+    - 201 Created
     ```
-### `GET /vehicles/{id}': Get vehicle information by id
+     { "jwt": string // bearer token }
+    ```
+    - 404 Not Found
+### `GET /vehicles/{id}`: Get vehicle information by id
   - Header:
     - Authorization: bearer \<token\>
   - Response
@@ -116,7 +156,7 @@ This app is dockerized to enable both ease of installation and execution on eith
     - 422 Unprocessable Entity
     ```
      { 
-         "error": "Event assemble cannot transition from {assembled, painted, tested}" 
+         "error": "Event assemble cannot transition from assembled or painted or tested" 
         
      }
      // assembled state can only be transitioned to from designed state. 
@@ -145,7 +185,7 @@ This app is dockerized to enable both ease of installation and execution on eith
     - 422 Unprocessable Entity
     ```
      { 
-         "error": "Event paint cannot transition from {designed, painted, tested}" 
+         "error": "Event paint cannot transition from designed or painted or tested" 
         
      }
       // painted state can only be transitioned to from assembled state by default. 
@@ -176,7 +216,7 @@ This app is dockerized to enable both ease of installation and execution on eith
     ```
      { 
 
-      "error": "Event paint cannot transition from {designed, painted tested}" 
+      "error": "Event paint cannot transition from designed or painted or tested" 
         
      }
       // tested state can only be transitioned to from painted state by default. 
@@ -202,6 +242,13 @@ This app is dockerized to enable both ease of installation and execution on eith
         "error": "Something went wrong"
     }
     ```
+    - 401 Not Authorized // when user is not admin
+    ```
+    {
+        "error": "not authorized"
+    }
+    ```
+
 ### `POST /states/delete_state`: Deletes a state 
   - Header:
     - Authorization: bearer \<token\>
@@ -221,6 +268,39 @@ This app is dockerized to enable both ease of installation and execution on eith
         "error": "Something went wrong"
     }
     ```
+    - 401 Not Authorized // when user is not admin
+    ```
+    {
+        "error": "not authorized"
+    }
+    ```
+
+### `POST /states/order_states`: re-orders the states of vehicles
+  - Header:
+    - Authorization: bearer \<token\>
+   
+  - Request body:
+
+  ```
+  {"state": string } 
+
+  ```
+  - Response
+    - 204 No Content 
+
+    - 500 Internal Server Error
+    ```
+    {
+        "error": "Something went wrong"
+    }
+    ```
+    - 401 Not Authorized // when user is not admin
+    ```
+    {
+        "error": "not authorized"
+    }
+    ```
+
 
 
     
