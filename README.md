@@ -221,12 +221,7 @@ This app is dockerized to enable both ease of installation and execution on eith
         "error": "Something went wrong"
     }
     ```
-- Request body:
 
-  ```
-  { "auth": {"username": string, "email": string } }
-
-  ```
 
     
 

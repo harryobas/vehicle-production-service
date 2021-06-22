@@ -3,11 +3,14 @@ require 'rails_helper'
 RSpec.describe "Vehicles", type: :request do
   let!(:vehicles) { create_list(:designed_state_vehicle, 10) }
   let (:vehicle_id) {vehicles.first.id}
+
   let(:vehicle_a){AssembleVehicle.call(id: vehicles.last.id).vehicle}
   let(:vehicle_a_id) {vehicle_a.id}
 
+  let(:user) { create(:regular_usr) }
+
   describe "POST /vehicles" do
-    before { post '/vehicles' }
+    before { post '/vehicles', headers: auth_headers(user) }
     it "returns a vehicle with initial state set to designed" do 
       expect(json['current_state']).to eq('designed')
     end
@@ -18,7 +21,7 @@ RSpec.describe "Vehicles", type: :request do
 
   describe "POST /vehicles/:id/assemble" do 
     context "when the vehicle is in designed state" do
-      before {post "/vehicles/#{vehicle_id}/assemble"}
+      before {post "/vehicles/#{vehicle_id}/assemble", headers: auth_headers(user)}
       it "returns the vehicle with current state set to assembled" do 
         expect(json['current_state']).to eq('assembled')
       end
@@ -27,7 +30,7 @@ RSpec.describe "Vehicles", type: :request do
       end
     end
     context "when vehicle is not in designed state" do 
-      before {post "/vehicles/#{vehicle_a_id}/assemble"}
+      before {post "/vehicles/#{vehicle_a_id}/assemble", headers: auth_headers(user)}
       it "returns error" do
         expect(json['error']).to eq("Event 'assemble' cannot transition from 'assembled'. ") 
       end
@@ -37,7 +40,7 @@ RSpec.describe "Vehicles", type: :request do
     end
     
     context "when vehicle id is invalid" do 
-      before {post "/vehicles/300/assemble"}
+      before {post "/vehicles/300/assemble", headers: auth_headers(user)}
       it "returns error" do 
         expect(json['error'])
         .to eq("Couldn't find Vehicle with 'id'=300") 
@@ -49,7 +52,7 @@ RSpec.describe "Vehicles", type: :request do
   end
 
   describe "GET /vehicles" do 
-    before {get "/vehicles"}
+    before {get "/vehicles", headers: auth_headers(user)}
 
     it "returns vehicles" do 
       expect(json).not_to be_empty 
@@ -61,7 +64,7 @@ RSpec.describe "Vehicles", type: :request do
   end
 
   describe "GET /vehicles/:id" do 
-    before {get "/vehicles/#{vehicle_id}"}
+    before {get "/vehicles/#{vehicle_id}", headers: auth_headers(user)}
 
     context "when the record exist" do 
       it "returns the vehicle" do 

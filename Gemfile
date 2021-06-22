@@ -19,6 +19,8 @@ gem 'aasm', '~> 4.12'
 gem "interactor", "~> 3.0"
 gem 'knock'
 
+gem 'active_model_serializers'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
