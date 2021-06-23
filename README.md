@@ -301,9 +301,9 @@ This app is dockerized to enable both ease of installation and execution on eith
     }
     ```
 
-### Addendum 
+## Addendum 
 
-## Testing with httpie 
+### Testing with httpie 
 
 - Signup to create a user account
 
