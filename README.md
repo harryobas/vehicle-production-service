@@ -301,6 +301,37 @@ This app is dockerized to enable both ease of installation and execution on eith
     }
     ```
 
+### Addendum 
+
+## Testing with httpie 
+
+- Signup to create a user account
+
+```
+http POST localhost:3000/auth/signup \
+username=danny
+email=danny@mail.com
+password=password
+password_confirmation=password
+role=admin 
+
+```
+- Signin to obtain a bearer token 
+
+```
+http POST localhost:3000/auth/signin \
+ auth:='{"email": "danny@mail.com", "password": "password" }'
+
+```
+- Use bearer token for each request 
+
+```
+http POST localhost:3000/vehicles \
+'Authorization: Bearer TOKEN'
+
+```
+ 
+
 
 
     

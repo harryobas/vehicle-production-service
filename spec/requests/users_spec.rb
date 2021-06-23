@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
-  let(:valid_attr) {{username: "ben", email: "ben@mail.com", password: "pa$$", password_confirmation: "pa$$", role: "admin"}}
+  let(:valid_attr) {{username: "ben", email: "ben@mail.com", password: "pa$$", password_confirmation: "pa$$", role: "user"}}
   let(:invalid_attr) {{email: "ben@mail.com", password: "pa$$", password_confirmation: "pa$$"}} 
   describe "POST /auth/signup" do
     context 'with valid user attributes' do 
