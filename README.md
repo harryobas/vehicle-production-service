@@ -19,7 +19,7 @@ An API-only app that provides endpoints for both regular users and admin users t
 This app is dockerized to enable both ease of installation and execution on either Linux, mac or windows. To install/run on Linux, make sure to have both docker and docker-compose installed on your machine and follow the instructions below:
 
 1. $ git clone https://github.com/harryobas/vehicle-production-service.git
-2. $ cd webhooks-receiver
+2. $ cd vehicle-production-service
 3. $ sudo docker-compose build
 4. $ sudo docker-compose up -d
 
